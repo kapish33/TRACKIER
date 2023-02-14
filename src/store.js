@@ -3,12 +3,15 @@ import {
   configureStore,
   getDefaultMiddleware,
 } from '@reduxjs/toolkit';
-import cardSlice from './redux/cardSlice';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import cardSlice from './redux/cardSlice';
+import userSlice from './redux/userSlice';
+
 const rootReducer = combineReducers({
   cards: cardSlice,
+  user: userSlice,
 });
 
 const persistConfig = {

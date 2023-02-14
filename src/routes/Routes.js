@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes as Switch, Route } from 'react-router-dom';
+import ProtectedRoute from '../component/ProtectedRoute';
 import { RemoveTrailingSlash } from './RemoveTrailingSlash';
 
 const Login = lazy(() => import('../component/Login'));
@@ -14,10 +15,18 @@ const Routes = () => (
     <Switch>
       <Route path='/' element={<Login />} />
       <Route path='/regestration' element={<Registration />} />
-      // Protected Routes
-      <Route path='/dashboard' element={<Dashboard />} />
+      {/*  Protected Routes */}
+      <Route
+        path='/dashboard'
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      {/* <ProtectedRoute exact path='/dashboard' element={<Dashboard />} /> */}
       <Route path='/dashboard/:task' element={<Task />} />
-      // For Unknow Route
+      {/*  For Unknow Route */}
       <Route path='*' element={<NotFound />} />
     </Switch>
   </Suspense>
