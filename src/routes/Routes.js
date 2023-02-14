@@ -24,7 +24,6 @@ const Routes = () => (
           </ProtectedRoute>
         }
       />
-      {/* <ProtectedRoute exact path='/dashboard' element={<Dashboard />} /> */}
       <Route path='/dashboard/:task' element={<Task />} />
       {/*  For Unknow Route */}
       <Route path='*' element={<NotFound />} />

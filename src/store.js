@@ -18,15 +18,15 @@ const persistConfig = {
   key: 'TRACKIER',
   storage,
 };
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 const persistor = persistStore(store);
 export { store, persistor };

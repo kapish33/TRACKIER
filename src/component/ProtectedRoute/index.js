@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 function ProtectedRoute({ children }) {
   const { tokens } = useSelector((state) => state?.user);
-  console.log('first', tokens);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
     if (!!tokens) {
@@ -28,7 +27,6 @@ function ProtectedRoute({ children }) {
   //         : navigate('/')
   //     )
   //     .catch((error) => navigate('/'));
-  //   dispatch(getLangauges());
   // }, [token, navigate, dispatch]);
 
   // or simpily using axios :))

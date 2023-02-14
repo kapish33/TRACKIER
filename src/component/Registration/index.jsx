@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { EmailRegex, PasswordRegex, AlphaREgex } from '../utiils/constant';
+import {
+  EmailRegex,
+  PasswordRegex,
+  AlphaREgex,
+  setLocalStorage,
+  USER,
+  getLocalStorage,
+} from '../utiils/constant';
+import { useNavigate } from 'react-router-dom';
 
 const Regestration = () => {
   const { myInfo } = useSelector((state) => state?.user);
   const [regestrationData, setRegestrationData] = useState(myInfo);
+  const navigate = useNavigate();
 
   const ButtonIsDisableOrNot =
     !!regestrationData?.firstName?.match(AlphaREgex) &&
@@ -20,6 +29,17 @@ const Regestration = () => {
       [name]: value,
     });
   };
+
+  const handelSubmit = (event) => {
+    event.preventDefault();
+    // Ideally server shuld the needfull inside redux but as of now i am making it local
+    setLocalStorage(USER, regestrationData);
+    navigate(`/dashboard`);
+  };
+
+  useEffect(() => {
+    getLocalStorage(USER) && navigate(`/dashboard`);
+  }, []);
 
   return (
     <section className='h-screen'>
@@ -132,6 +152,7 @@ const Regestration = () => {
                 className='btn'
                 data-mdb-ripple='true'
                 disabled={!ButtonIsDisableOrNot}
+                onClick={(e) => handelSubmit(e)}
                 data-mdb-ripple-color='light'>
                 Regestration
               </button>

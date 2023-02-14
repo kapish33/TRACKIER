@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../redux/userSlice';
-import { EmailRegex, PasswordRegex } from '../utiils/constant';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  EmailRegex,
+  getLocalStorage,
+  PasswordRegex,
+  USER,
+} from '../utiils/constant';
 
 const Login = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [regestrationData, setRegestrationData] = useState({
     email: 'email@test.com',
     password: 'Qwe123@#',
@@ -16,19 +20,23 @@ const Login = () => {
 
   const handelChange = (event) => {
     const { value, name } = event.target;
-
     setRegestrationData({
       ...regestrationData,
       [name]: value,
     });
   };
 
-  const onClick = () => {
-    // make request and as per response
-    // update state or redux
-    // as its dummy do i done it in redux i know it would be promiss and can be done with dummy json file also
-    dispatch(setUser()); // it will do login stuff
+  const handelClick = (e) => {
+    e.preventDefault();
+    const localUser = getLocalStorage(USER);
+    if (regestrationData.password === localUser.password) {
+      navigate(`/dashboard`);
+    }
   };
+
+  useEffect(() => {
+    getLocalStorage(USER) && navigate(`/dashboard`);
+  }, [navigate]);
   return (
     <section className='h-screen'>
       <div className='container mx-auto h-full px-6 py-12'>
@@ -95,6 +103,7 @@ const Login = () => {
                 className='btn'
                 data-mdb-ripple='true'
                 disabled={!ButtonIsDisableOrNot}
+                onClick={(e) => handelClick(e)}
                 data-mdb-ripple-color='light'>
                 Sign in
               </button>

@@ -32,7 +32,6 @@ export const userSlice = createSlice({
       state.tokens = '';
     },
     setUser: (state, action) => {
-      // at time of login we have to set use a per request  && token
       state.myInfo = {
         firstName: 'first',
         lastName: 'last',
