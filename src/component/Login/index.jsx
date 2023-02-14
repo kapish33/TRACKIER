@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   EmailRegex,
@@ -9,6 +10,8 @@ import {
 
 const Login = () => {
   const navigate = useNavigate();
+  const { createdUser } = useSelector((state) => state?.user);
+
   const [regestrationData, setRegestrationData] = useState({
     email: 'email@test.com',
     password: 'Qwe123@#',
@@ -28,10 +31,13 @@ const Login = () => {
 
   const handelClick = (e) => {
     e.preventDefault();
-    const localUser = getLocalStorage(USER);
-    if (regestrationData.password === localUser.password) {
-      navigate(`/dashboard`);
-    }
+    const found = createdUser.find((ele) => {
+      return (
+        ele.email === regestrationData.email &&
+        ele.password === regestrationData.password
+      );
+    });
+    if (!!found) navigate(`/dashboard`);
   };
 
   useEffect(() => {

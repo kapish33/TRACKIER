@@ -1,26 +1,27 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   EmailRegex,
   PasswordRegex,
   AlphaREgex,
-  setLocalStorage,
   USER,
   getLocalStorage,
 } from '../utiils/constant';
 import { useNavigate } from 'react-router-dom';
+import { setUser } from '../../redux/userSlice';
 
 const Regestration = () => {
   const { myInfo } = useSelector((state) => state?.user);
   const [regestrationData, setRegestrationData] = useState(myInfo);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const ButtonIsDisableOrNot =
     !!regestrationData?.firstName?.match(AlphaREgex) &&
     !!regestrationData?.lastName?.match(AlphaREgex) &&
     !!regestrationData?.email?.match(EmailRegex) &&
     !!regestrationData.password?.match(PasswordRegex) &&
-    regestrationData?.Conform_password === regestrationData?.Conform_password;
+    regestrationData?.Conform_password === regestrationData?.password;
 
   const handelChange = (event) => {
     const { value, name } = event.target;
@@ -33,13 +34,14 @@ const Regestration = () => {
   const handelSubmit = (event) => {
     event.preventDefault();
     // Ideally server shuld the needfull inside redux but as of now i am making it local
-    setLocalStorage(USER, regestrationData);
+    dispatch(setUser(regestrationData));
+    // then it should do something and be on /dashboard
     navigate(`/dashboard`);
   };
 
   useEffect(() => {
     getLocalStorage(USER) && navigate(`/dashboard`);
-  }, []);
+  }, [navigate]);
 
   return (
     <section className='h-screen'>

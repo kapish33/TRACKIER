@@ -14,6 +14,15 @@ const InitUser = {
     password: 'Qwe123@#',
     Conform_password: 'Qwe123@#',
   },
+  createdUser: [
+    {
+      firstName: 'first',
+      lastName: 'last',
+      email: 'email@test.com',
+      password: 'Qwe123@#',
+      Conform_password: 'Qwe123@#',
+    },
+  ],
   tokens: '123',
 };
 
@@ -32,14 +41,7 @@ export const userSlice = createSlice({
       state.tokens = '';
     },
     setUser: (state, action) => {
-      state.myInfo = {
-        firstName: 'first',
-        lastName: 'last',
-        email: 'email@test.com',
-        password: 'Qwe123@#',
-        Conform_password: 'Qwe123@#',
-      };
-      state.tokens = '123';
+      state.createdUser = [...state.createdUser, action];
     },
   },
 });

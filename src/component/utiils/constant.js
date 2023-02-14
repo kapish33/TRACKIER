@@ -37,7 +37,6 @@ export const uuidv4 = () => {
 };
 
 export const updateLocalStorage = (Action, Payload, key, index) => {
-  console.log('as', getLocalStorage(key));
   const ourArray = getLocalStorage(key) || []; // []
   index = ourArray?.length - 1 || 0;
   let ans = [];
@@ -45,7 +44,6 @@ export const updateLocalStorage = (Action, Payload, key, index) => {
   } else if (Action === PUSH_AT_INDEX) {
     ans = ourArray.add(Payload);
     setLocalStorage(key, ans);
-    console.log('first', ans);
     return ans;
   } else if (Action === UPDATE_AT_INDEX) {
   }

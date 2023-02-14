@@ -8,11 +8,7 @@ const initailPaginatedData = {
 
   errorMessage: '',
   tabelData: {}, // Paginanted User Data
-  currentTableState: {
-    name: '',
-    user: '',
-    changes: '',
-  }, // Persiste So That User Will get Data Even After Refresh
+  totalCards: [], // Persiste So That User Will get Data Even After Refresh
   filter: {},
 };
 
@@ -20,18 +16,11 @@ export const cardSlice = createSlice({
   name: 'cards',
   initialState: initailPaginatedData,
   reducers: {
-    setTable: (state, action) => {
-      state.currentTableState = action.payload;
-    },
-    clearState: (state, action) => {
-      state.currentTableState = {
-        name: '',
-        user: '',
-        changes: '',
-      };
+    setCard: (state, action) => {
+      state.totalCards = [...state.totalCards, action.payload];
     },
   },
 });
 
-export const { setTable, clearState, rerender } = cardSlice.actions;
+export const { setCard } = cardSlice.actions;
 export default cardSlice.reducer;

@@ -10,6 +10,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import { AlphaREgex, uuidv4 } from '../../utiils/constant';
+import { useDispatch } from 'react-redux';
+import { setCard } from '../../../redux/cardSlice';
 
 const style = {
   position: 'absolute',
@@ -24,6 +26,7 @@ const style = {
 };
 
 const FIlters = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [project, SetProject] = React.useState({
     uuid: uuidv4(),
@@ -33,8 +36,7 @@ const FIlters = () => {
     tasks: [],
     endingData: dayjs(),
   });
-  const ButtonIsDisableOrNot =
-    !!project?.title?.match(AlphaREgex) && !!project?.url?.match(AlphaREgex);
+  const ButtonIsDisableOrNot = !!project?.title?.match(AlphaREgex);
 
   const handelChange = (event) => {
     const { value, name } = event.target;
@@ -46,7 +48,9 @@ const FIlters = () => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handelSubmit = () => {};
+  const handelSubmit = () => {
+    dispatch(setCard(project));
+  };
 
   return (
     <div className='p-5'>
@@ -96,7 +100,7 @@ const FIlters = () => {
               />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <MobileDateTimePicker
-                  label='For mobile'
+                  label='Select Date'
                   value={project.endingData}
                   onChange={(newValue) => {
                     SetProject({
