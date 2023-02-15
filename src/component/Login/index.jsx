@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   EmailRegex,
   getLocalStorage,
@@ -113,6 +113,9 @@ const Login = () => {
                 data-mdb-ripple-color='light'>
                 Sign in
               </button>
+              <div className='pt-3 text-center capitalize underline'>
+                <Link to={'/regestration'}>create a account</Link>
+              </div>
             </form>
           </div>
         </div>

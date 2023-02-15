@@ -7,7 +7,7 @@ import {
   USER,
   getLocalStorage,
 } from '../utiils/constant';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { setUser } from '../../redux/userSlice';
 
 const Regestration = () => {
@@ -158,6 +158,9 @@ const Regestration = () => {
                 data-mdb-ripple-color='light'>
                 Regestration
               </button>
+              <div className='pt-3 text-center capitalize underline'>
+                <Link to={'/'}>Already Have Login</Link>
+              </div>
             </form>
           </div>
         </div>

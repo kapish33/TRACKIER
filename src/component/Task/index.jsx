@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { formatDate, uuidv4 } from '../utiils/constant';
@@ -27,42 +26,6 @@ const Task = () => {
   }, [tasks, task, totalCards, statusArray]);
   console.log('first', arrayOfStatus);
 
-  const onDragEnd = (result, arrayOfStatus, setArrayOfStatus) => {
-    if (!result.destination) return;
-    const { source, destination } = result;
-    if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = arrayOfStatus[source.droppableId];
-      const destColumn = arrayOfStatus[destination.droppableId];
-      const sourceItems = [...sourceColumn.items];
-      const destItems = [...destColumn.items];
-      const [removed] = sourceItems.splice(source.index, 1);
-      destItems.splice(destination.index, 0, removed);
-      setArrayOfStatus({
-        ...arrayOfStatus,
-        [source.droppableId]: {
-          ...sourceColumn,
-          items: sourceItems,
-        },
-        [destination.droppableId]: {
-          ...destColumn,
-          items: destItems,
-        },
-      });
-    } else {
-      const column = arrayOfStatus[source.droppableId];
-      const copiedItems = [...column.items];
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
-      setArrayOfStatus({
-        ...arrayOfStatus,
-        [source.droppableId]: {
-          ...column,
-          items: copiedItems,
-        },
-      });
-    }
-  };
-
   return (
     <div className='h-screen bg-gradient-to-r from-cyan-500 to-blue-500 p-5 text-white'>
       <div className='flex justify-between'>
@@ -76,23 +39,12 @@ const Task = () => {
       <br />
       <hr />
       {/* Showing Status at top like done in progress*/}
-      <DragDropContext
-        onDragEnd={(result) =>
-          onDragEnd(result, arrayOfStatus, setArrayOfStatus)
-        }>
-        <div className='flex'>
-          {arrayOfStatus.map((status) => (
-            <Droppable key={uuidv4()} droppableId={uuidv4()}>
-              {(provided, snapshot) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  <StatusCards {...status} />
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          ))}
-        </div>
-      </DragDropContext>
+
+      <div className='flex'>
+        {arrayOfStatus.map((status) => (
+          <StatusCards {...status} key={uuidv4()} />
+        ))}
+      </div>
     </div>
   );
 };

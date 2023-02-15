@@ -17,7 +17,7 @@ export const NullFooterRoutes = ['/'];
 export const EmailRegex = '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$';
 export const PasswordRegex =
   '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$';
-export const AlphaREgex = '^[a-zA-Z]*$';
+export const AlphaREgex = '^[a-zA-Z0-9 ]*$';
 
 /* 
 @@ Functions 
