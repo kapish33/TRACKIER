@@ -9,21 +9,9 @@ import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import { AlphaREgex, uuidv4 } from '../../utiils/constant';
+import { AlphaREgex, style, uuidv4 } from '../../utiils/constant';
 import { useDispatch } from 'react-redux';
 import { setCard } from '../../../redux/cardSlice';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 const FIlters = () => {
   const dispatch = useDispatch();
@@ -46,10 +34,14 @@ const FIlters = () => {
     });
   };
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+    SetProject({ ...project, uuid: uuidv4() });
+  };
   const handleClose = () => setOpen(false);
   const handelSubmit = () => {
     dispatch(setCard(project));
+    setOpen(false);
   };
 
   return (

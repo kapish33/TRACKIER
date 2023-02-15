@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 function ProtectedRoute({ children }) {
-  const { tokens } = useSelector((state) => state?.user);
+  const { myInfo } = useSelector((state) => state?.user);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
-    if (!!tokens) {
+    if (!!myInfo) {
       setIsAuthenticated(true);
     }
-  }, [tokens]);
+  }, [myInfo]);
 
   //   we can make it network dependent
   // useEffect(() => {

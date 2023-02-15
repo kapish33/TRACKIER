@@ -36,6 +36,15 @@ export const uuidv4 = () => {
   });
 };
 
+export const formatDate = (d) => {
+  // let d = new Date(2010, 7, 5);
+  // const d = new Date();
+  const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+  const mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
+  const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+  return `${da}-${mo}-${ye}`;
+};
+
 export const updateLocalStorage = (Action, Payload, key, index) => {
   const ourArray = getLocalStorage(key) || []; // []
   index = ourArray?.length - 1 || 0;
@@ -47,4 +56,17 @@ export const updateLocalStorage = (Action, Payload, key, index) => {
     return ans;
   } else if (Action === UPDATE_AT_INDEX) {
   }
+};
+
+// Material commoan Styling
+export const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
 };

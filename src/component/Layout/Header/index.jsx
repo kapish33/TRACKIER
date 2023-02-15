@@ -1,8 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { NullHeaderRoutes } from '../../utiils/constant';
 
 const Header = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     !NullHeaderRoutes.includes(pathname) && (
@@ -30,7 +31,9 @@ const Header = () => {
                 Dash Board
               </Link>
             </nav>
-            <button className='mt-4 inline-flex items-center rounded border-0 bg-gray-100 py-1 px-3 text-base hover:bg-gray-200 focus:outline-none md:mt-0'>
+            <button
+              onClick={() => navigate('/')}
+              className='mt-4 inline-flex items-center rounded border-0 bg-gray-100 py-1 px-3 text-base hover:bg-gray-200 focus:outline-none md:mt-0'>
               Logout
               <svg
                 fill='none'
