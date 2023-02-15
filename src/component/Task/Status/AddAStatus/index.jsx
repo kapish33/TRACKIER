@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 
 const AddAStatus = ({ statusId, boardId }) => {
   const dispatch = useDispatch();
+  //   const { createdUser } = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const [project, SetProject] = useState({
     uuid: uuidv4(),
@@ -26,7 +27,9 @@ const AddAStatus = ({ statusId, boardId }) => {
     statusId,
     boardId,
     commnet: [],
+    developer: 'Chirag',
   });
+  //   console.log('first', project);
   const ButtonIsDisableOrNot = !!project?.title?.match(AlphaREgex);
 
   const handleClose = () => setOpen(false);
@@ -80,6 +83,7 @@ const AddAStatus = ({ statusId, boardId }) => {
               rows={4}
               cols={4}
             />
+
             <TextField
               id='outlined-multiline-flexible'
               label='url'
@@ -102,6 +106,23 @@ const AddAStatus = ({ statusId, boardId }) => {
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
+
+            <label
+              htmlFor='countries'
+              className='mb-2 block text-sm font-medium text-gray-900 dark:text-white'>
+              Select an option
+            </label>
+            <select
+              onChange={handelChange}
+              value={project.developer}
+              name='developer'
+              id='countries'
+              className='block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm capitalize text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500'>
+              <option value='Chirag'>Chirag</option>
+              <option value='Deveansh'>Deveansh</option>
+              <option value='kapish'>kapish</option>
+              <option value='Random'>Random</option>
+            </select>
 
             <Button
               disabled={!ButtonIsDisableOrNot}

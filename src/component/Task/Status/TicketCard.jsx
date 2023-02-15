@@ -13,7 +13,8 @@ const TicketCard = ({ statusId }) => {
     setTicker(relavantTicket);
   }, [taskArray, statusId]);
   return (
-    <div className='bg-white'>
+    <div>
+      cards 👇
       {ticket.map((data) => (
         <PatchAndViewTikket {...data} key={uuidv4()} />
       ))}

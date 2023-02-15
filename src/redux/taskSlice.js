@@ -17,6 +17,7 @@ export const taskSlice = createSlice({
     addTask: (state, action) => {
       state.taskArray = [...state.taskArray, action.payload];
     },
+    upadteTaskStatus: (state, action) => {},
   },
 });
 /**
